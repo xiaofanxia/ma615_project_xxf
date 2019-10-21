@@ -1,0 +1,38 @@
+---
+title: "ma615_midterm project"
+author: "xiaofan xia"
+date: "2019/10/15"
+output:
+  beamer_presentation:
+    incremental: yes
+  ioslides_presentation:
+    incremental: yes
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(janitor)
+```
+
+
+The dataset is from the world bank open data. This is a dataset of the health nutrition and population. It contains 259 countries and 59 years with 10 series of variables including adolescent fertility rate (births per 1,000 women ages 15-19), adults (ages 15+) and chidren (ages 0-14) living with HIV, adults and children newly infected with HIV, adults living with HIV, adults newly infected with HIV, age at first marriage (female), age at first marriage (male), age dependency ratio (% of working-age population), age dependency ratio (old),and age dependency ratio (young). 
+
+Firstly, I read in the data and clean the data.
+
+```{r echo=FALSE}
+data <- read.csv("data2.csv") 
+year <- colnames(data)[5:63]
+data_new <- 
+  data %>%
+  gather(year,key = "year",value = "value")
+data_adole_fert_rate <- 
+  data_new %>%
+  filter(Series.Name=="Adolescent fertility rate (births per 1,000 women ages 15-19)")
+
+```
+
+
+```{r}
+
+
+```
