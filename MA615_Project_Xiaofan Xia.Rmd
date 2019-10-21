@@ -3,35 +3,86 @@ title: "ma615_midterm project"
 author: "xiaofan xia"
 date: "2019/10/15"
 output:
-  beamer_presentation:
-    incremental: yes
-  ioslides_presentation:
-    incremental: yes
+    pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
 library(tidyverse)
-library(janitor)
+
 ```
 
 
 The dataset is from the world bank open data. This is a dataset of the health nutrition and population. It contains 259 countries and 59 years with 10 series of variables including adolescent fertility rate (births per 1,000 women ages 15-19), adults (ages 15+) and chidren (ages 0-14) living with HIV, adults and children newly infected with HIV, adults living with HIV, adults newly infected with HIV, age at first marriage (female), age at first marriage (male), age dependency ratio (% of working-age population), age dependency ratio (old),and age dependency ratio (young). 
 
 Firstly, I read in the data and clean the data.
+I specifically choose the variable of adolescent fertility rate (birth per 1,000 women ages 15-19). 
 
-```{r echo=FALSE}
+```{r, warning=FALSE}
 data <- read.csv("data2.csv") 
 year <- colnames(data)[5:63]
 data_new <- 
   data %>%
-  gather(year,key = "year",value = "value")
-data_adole_fert_rate <- 
-  data_new %>%
+  gather(year,key = "year",value = "value")%>%
+  select(Series.Name,Country.Name,year,value)
+data_new$year <- as.numeric(str_sub(data_new$year,2,5))
+data_new$value <- as.numeric(data_new$value) 
+
+data_adolscent_fert_rate <-
+  data_new%>%
   filter(Series.Name=="Adolescent fertility rate (births per 1,000 women ages 15-19)")
+```
+
+I did EDA by world areas. 
+
+```{r warning=FALSE}
+East_Asia_Pacific <- 
+  data_adolscent_fert_rate%>%
+  filter(Country.Name=="East Asia & Pacific")
+ggplot(East_Asia_Pacific)+aes(year,value)+geom_point(aes(color=year))+ggtitle("Adolescent fertility rate of East Asia & Pacific")
+
+Arab_World <- 
+  data_adolscent_fert_rate%>%
+  filter(Country.Name=="Arab World")
+ggplot(Arab_World)+aes(year,value)+geom_point(aes(color=year))+ggtitle("Adolescent fertility rate of Arab World")
+
+Europe_Central_Asia <- 
+  data_adolscent_fert_rate%>%
+  filter(Country.Name=="Europe & Central Asia")
+ggplot(Europe_Central_Asia)+aes(year,value)+geom_point(aes(color=year))+ggtitle("Adolescent fertility rate of Europe & Central Asia")
+
+Latin_America_Caribbean <- 
+  data_adolscent_fert_rate%>%
+  filter(Country.Name=="Latin America & Caribbean")
+ggplot(Latin_America_Caribbean)+aes(year,value)+geom_point(aes(color=year))+ggtitle("Adolescent fertility rate of Latin America & Caribbean")
+
+Middle_East_North_Africa <-
+ data_adolscent_fert_rate%>%
+  filter(Country.Name=="Middle East & North Africa")
+ggplot(Middle_East_North_Africa)+aes(year,value)+geom_point(aes(color=year))+ggtitle("Adolescent fertility rate of Middle East & North Africa")
+
+North_America <-
+   data_adolscent_fert_rate%>%
+  filter(Country.Name=="North America")
+ggplot(North_America)+aes(year,value)+geom_point(aes(color=year))+ggtitle("Adolescent fertility rate of North America")
+
+South_Asia <-
+   data_adolscent_fert_rate%>%
+  filter(Country.Name=="South Asia")
+ggplot(South_Asia)+aes(year,value)+geom_point(aes(color=year))+ggtitle("Adolescent fertility rate of South Asia")
+
+Central_Europe_the_Baltics <-
+  data_adolscent_fert_rate%>%
+  filter(Country.Name=="Central Europe and the Baltics")
+ggplot(Central_Europe_the_Baltics)+aes(year,value)+geom_point(aes(color=year))+ggtitle("Adolescent fertility rate of Central Europe and the Baltics")
+
+World <-
+  data_adolscent_fert_rate%>%
+  filter(Country.Name=="World")
+ggplot(World)+aes(year,value)+geom_point(aes(color=year))+ggtitle("Adolescent fertility rate of the World")
 
 ```
 
-
+EDA by income level.
 ```{r}
 
 
