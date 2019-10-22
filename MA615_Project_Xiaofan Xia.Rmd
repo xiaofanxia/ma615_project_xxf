@@ -8,7 +8,6 @@ output:
 
 ```{r setup, include=FALSE}
 library(tidyverse)
-
 ```
 
 
@@ -39,6 +38,8 @@ East_Asia_Pacific <-
   data_adolscent_fert_rate%>%
   filter(Country.Name=="East Asia & Pacific")
 ggplot(East_Asia_Pacific)+aes(year,value)+geom_point(aes(color=year))+ggtitle("Adolescent fertility rate of East Asia & Pacific")
+
+
 
 Arab_World <- 
   data_adolscent_fert_rate%>%
@@ -81,9 +82,40 @@ World <-
 ggplot(World)+aes(year,value)+geom_point(aes(color=year))+ggtitle("Adolescent fertility rate of the World")
 
 ```
-
-EDA by income level.
-```{r}
+Overall, the adolescent fertility rate decreases gradually from 1960 to 2018. But the patterns of different areas in the world is quite different. This might also reflect the relationship between economic development and adolescent fertility rate as well. Therefore, I want to explore the adolescent fertility rate differences in different income levels. 
 
 
+EDA by countries' income level.
+```{r warning=FALSE}
+high_income <- 
+  data_adolscent_fert_rate%>%
+  filter(Country.Name=="High income")
+ggplot(high_income)+aes(year,value)+geom_point(aes(color=year))+ggtitle("Adolescent fertility rate of high income countries")
+
+low_income <- 
+  data_adolscent_fert_rate%>%
+  filter(Country.Name=="Low income")
+ggplot(low_income)+aes(year,value)+geom_point(aes(color=year))+ggtitle("Adolescent fertility rate of low income countries")
+
+lower_middle_income <- 
+  data_adolscent_fert_rate%>%
+  filter(Country.Name=="Lower middle income")
+ggplot(lower_middle_income)+aes(year,value)+geom_point(aes(color=year))+ggtitle("Adolescent fertility rate of lower middle income countries")
+
+middle_income <- 
+  data_adolscent_fert_rate%>%
+  filter(Country.Name=="Middle income")
+ggplot(middle_income)+aes(year,value)+geom_point(aes(color=year))+ggtitle("Adolescent fertility rate of middle income countries")
+
+upper_middle_income <- 
+  data_adolscent_fert_rate%>%
+  filter(Country.Name=="Upper middle income")
+ggplot(upper_middle_income)+aes(year,value)+geom_point(aes(color=year))+ggtitle("Adolescent fertility rate of upper middle income countries")
+
+low_middle_income <- 
+  data_adolscent_fert_rate%>%
+  filter(Country.Name=="Low & middle income")
+ggplot(low_middle_income)+aes(year,value)+geom_point(aes(color=year))+ggtitle("Adolescent fertility rate of low and middle income countries")
 ```
+
+It is pretty obvious that low income countries started the decreasing of adolescent fertility rate later than countries with higher income level. 

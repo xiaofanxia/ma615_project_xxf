@@ -106,4 +106,52 @@ World <-
 ggplot(World)+aes(year,value)+geom_point(aes(color=year))+ggtitle("Adolescent fertility rate of the World")
 ```
 
+## EDA by income level- Low Income Countries
+```{r warning=FALSE,echo=FALSE}
+low_income <- 
+  data_adolscent_fert_rate%>%
+  filter(Country.Name=="Low income")
+ggplot(low_income)+aes(year,value)+geom_point(aes(color=year))+ggtitle("Adolescent fertility rate of low income countries")
 
+```
+
+## Low and Middle Income Countries
+```{r warning=FALSE,echo=FALSE}
+low_middle_income <- 
+  data_adolscent_fert_rate%>%
+  filter(Country.Name=="Low & middle income")
+ggplot(low_middle_income)+aes(year,value)+geom_point(aes(color=year))+ggtitle("Adolescent fertility rate of low and middle income countries")
+```
+
+
+## Lower Middle Income Countries
+```{r warning=FALSE,echo=FALSE}
+lower_middle_income <- 
+  data_adolscent_fert_rate%>%
+  filter(Country.Name=="Lower middle income")
+ggplot(lower_middle_income)+aes(year,value)+geom_point(aes(color=year))+ggtitle("Adolescent fertility rate of lower middle income countries")
+```
+
+## Middle Income Countries
+```{r warning=FALSE,echo=FALSE}
+middle_income <- 
+  data_adolscent_fert_rate%>%
+  filter(Country.Name=="Middle income")
+ggplot(middle_income)+aes(year,value)+geom_point(aes(color=year))+ggtitle("Adolescent fertility rate of middle income countries")
+```
+
+## Upper Income Countries
+```{r warning=FALSE,echo=FALSE}
+upper_middle_income <- 
+  data_adolscent_fert_rate%>%
+  filter(Country.Name=="Upper middle income")
+ggplot(upper_middle_income)+aes(year,value)+geom_point(aes(color=year))+ggtitle("Adolescent fertility rate of upper middle income countries")
+```
+
+## High Income Countries
+```{r warning=FALSE,echo=FALSE}
+high_income <- 
+  data_adolscent_fert_rate%>%
+  filter(Country.Name=="High income")
+ggplot(high_income)+aes(year,value)+geom_point(aes(color=year))+ggtitle("Adolescent fertility rate of high income countries")
+```
