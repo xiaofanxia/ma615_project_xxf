@@ -106,6 +106,13 @@ World <-
 ggplot(World)+aes(year,value)+geom_point(aes(color=year))+ggtitle("Adolescent fertility rate of the World")
 ```
 
+## Differences of different world areas
+```{r warning=FALSE,echo=FALSE}
+region <- rbind(World,Central_Europe_the_Baltics,South_Asia,North_America,Middle_East_North_Africa,Latin_America_Caribbean,Europe_Central_Asia,Arab_World,East_Asia_Pacific)
+
+ggplot(region)+aes(year,value)+geom_smooth(aes(color=Country.Name))+ggtitle("Adolescent fertility rate for different world areas")+theme(legend.position = "bottom") #show differences regarding to different world areas
+```
+
 ## EDA by income level- Low Income Countries
 ```{r warning=FALSE,echo=FALSE}
 low_income <- 
@@ -154,4 +161,12 @@ high_income <-
   data_adolscent_fert_rate%>%
   filter(Country.Name=="High income")
 ggplot(high_income)+aes(year,value)+geom_point(aes(color=year))+ggtitle("Adolescent fertility rate of high income countries")
+```
+
+## Income level differences 
+```{r warning=FALSE,echo=FALSE}
+income <-
+  data_adolscent_fert_rate%>%
+  filter(grepl("income",data_adolscent_fert_rate$Country.Name)==TRUE)
+ggplot(income)+aes(year,value)+geom_smooth(aes(color=Country.Name))+ggtitle("Adolescent fertility rate regarding to different income level")+theme(legend.position = "bottom") #compare the rate regarding to different income levels
 ```
