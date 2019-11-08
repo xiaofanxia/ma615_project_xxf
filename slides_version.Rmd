@@ -19,7 +19,7 @@ library(tidyverse)
 ## Firstly, I read in the data and clean the data.I specifically choose the variable of adolescent fertility rate (birth per 1,000 women ages 15-19). 
 
 ```{r warning=FALSE, echo=FALSE}
-data <- read.csv("data2.csv") 
+data <- read.csv("data2.csv",encoding = "UTF-8") 
 year <- colnames(data)[5:63]
 data_new <- 
   data %>%

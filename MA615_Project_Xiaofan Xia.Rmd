@@ -19,7 +19,7 @@ The dataset is from the world bank open data. This is a dataset of the health nu
 
 Firstly, I read in the data and clean the data. I specifically choose the variable of adolescent fertility rate (birth per 1,000 women ages 15-19). The cleaned data contains 4 variables and more than 15,000 observations. I mainly focus on the relationship between the adolescent fertility rate and the country areas as well as the relationship between the adolescent fertility rate and the country income levels.
 ```{r, warning=FALSE}
-data <- read.csv("data2.csv") 
+data <- read.csv("data2.csv",encoding = "UTF-8") 
 year <- colnames(data)[5:63]
 data_new <- 
   data %>%
@@ -31,7 +31,7 @@ data_new$value <- as.numeric(data_new$value)
 data_adolscent_fert_rate <-
   data_new%>%
   filter(Series.Name=="Adolescent fertility rate (births per 1,000 women ages 15-19)")
-head(tibble(data_adolscent_fert_rate))
+head(data_adolscent_fert_rate)
 ```
 
 ## EDA by world areas. 
