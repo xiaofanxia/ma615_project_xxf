@@ -8,42 +8,58 @@
 #
 
 library(shiny)
+library(tidyverse)
 
-# Define UI for application that draws a histogram
-ui <- fluidPage(
+#Read in and clean data
+data <- read.csv("data2.csv") 
+year <- colnames(data)[5:63]
+data_new <- 
+    data %>%
+    gather(year,key = "year",value = "rate")%>%
+    select(Series.Name,Country.Name,year,rate)
+data_new$year <- as.numeric(str_sub(data_new$year,2,5))
+data_new$rate <- as.numeric(data_new$rate) 
 
-    # Application title
-    titlePanel("Worldwide adolescent fertility rate"),
+data_final <-
+    data_new %>%
+    filter(Series.Name=="Adolescent fertility rate (births per 1,000 women ages 15-19)")
 
-    # Sidebar with a slider input for number of bins 
-    sidebarLayout(
-        sidebarPanel(
-            sliderInput("bins",
-                        "Number of bins:",
-                        min = 1,
-                        max = 50,
-                        value = 30)
-        ),
+data_final$year <- as.numeric(data_final$year)
+data_final$rate <- as.numeric(data_final$rate)
+data_final$Country.Name <- as.character(data_final$Country.Name)
 
-        # Show a plot of the generated distribution
-        mainPanel(
-           plotOutput("distPlot")
-        )
+shinydata <- data_final
+shinydata <-na.omit(shinydata)
+
+# Define UI
+ui <-pageWithSidebar(
+    headerPanel("Adolescent Fertility Rate"),
+    sidebarPanel(
+        selectInput("country", "Country",shinydata$Country.Name)
+    ),
+    
+    mainPanel(
+        h3(textOutput("caption")),
+        plotOutput("Plot")
     )
 )
 
-# Define server logic required to draw a histogram
+# Define server 
 server <- function(input, output) {
-
-    output$distPlot <- renderPlot({
-        # generate bins based on input$bins from ui.R
-        x    <- faithful[, 2]
-        bins <- seq(min(x), max(x), length.out = input$bins + 1)
-
-        # draw the histogram with the specified number of bins
-        hist(x, breaks = bins, col = 'darkgray', border = 'white')
+    formulaText <- reactive({
+        paste(input$Country & input$Year & input$Rate)
+    })
+    
+    output$caption <- renderText({
+        formulaText()
+    })
+    
+    output$Plot <- renderPlot({
+        shinydata=filter(shinydata,Country.Name==input$country)
+             ggplot(data=shinydata,aes(x=year,y=rate))+geom_point(aes(x=year,y=rate,color=year))
+        
     })
 }
 
-# Run the application 
-shinyApp(ui = ui, server = server)
+#Run the app
+shinyApp(ui, server)
